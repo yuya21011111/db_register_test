@@ -1,0 +1,67 @@
+<ons-page>
+    <ons-toolbar>
+    <div class="left"><ons-back-button>戻る</ons-back-button></div>
+    <div class="center">検索結果</div>
+    </ons-toolbar>
+
+    <!-- <ons-list id="list_content"></ons-list> -->
+    <div id="list_content"></div>
+    
+    <script>
+    ons.getScriptPage().onInit=function(){
+        //前画面から渡されたデータを取り出し表示
+
+        for(i=0; i<this.data.books.items.length; i++){
+            //サムネイル＋タイトル
+            if("imageLinks" in this.data.books.items[i].volumeInfo){
+                // $("#list_content").append(`<ons-list-header>カバー写真</ons-list-header>`);
+                if("smallThumbnail" in this.data.books.items[i].volumeInfo.imageLinks){
+                    // $("#list_content").append(`<ons-list-item><div class="left"><img class="list-item__thumbnail" src="${this.data.books.items[i].volumeInfo.imageLinks.thumbnail.replace("http","https")}"></div></ons-list-item>`);
+                    // $("#list_content").append(`<ons-card><div class="left"><img class="list-item__thumbnail" src="${this.data.books.items[i].volumeInfo.imageLinks.thumbnail.replace("http","https")}">${this.data.books.items[i].volumeInfo.title}</div></ons-card>`);
+                    $("#list_content").append(`<ons-card><div class="left"><img class="list-item__thumbnail" src="${this.data.books.items[i].volumeInfo.imageLinks.thumbnail.replace("http","https")}">${this.data.books.items[i].volumeInfo.title}</div></ons-card>`);
+                }else{
+                    // $("#list_content").append(`<ons-list-item><img src="${this.data.books.items[i].volumeInfo.imageLinks.smallThumbnail.replace("http","https")}"></ons-list-item>`);
+                    $("#list_content").append(`<ons-card><img src="${this.data.books.items[i].volumeInfo.imageLinks.smallThumbnail.replace("http","https")}"></ons-card>`);
+                }
+            }
+            // if("title" in this.data.books.items[i].volumeInfo){
+                // $("#list_content").append(`<ons-list-header>書籍タイトル</ons-list-header>`);
+                // $("#list_content").append(`<ons-list-item tappable>${this.data.books.items[i].volumeInfo.title}</ons-list-item>`);
+            // }
+        }
+
+        // //サブタイトル        
+        // if("subtitle" in this.data.books.items[0].volumeInfo){
+        //     $("#detail").append(`<ons-list-header>書籍サブタイトル</ons-list-header>`);
+        //     $("#detail").append(`<ons-list-item>${this.data.books.items[0].volumeInfo.subtitle}</ons-list-item>`);
+        // }
+
+        // //著者        
+        // if("authors" in this.data.books.items[0].volumeInfo){
+        //     $("#detail").append(`<ons-list-header>著者名</ons-list-header>`);
+        //     for(i=0;  i<this.data.books.items[0].volumeInfo.authors.length;i++){
+        //         $("#detail").append(`<ons-list-item>${this.data.books.items[0].volumeInfo.authors[i]}</ons-list-item>`);
+        //     }
+        // }
+
+        // //概要        
+        // if("description" in this.data.books.items[0].volumeInfo){
+        //     $("#detail").append(`<ons-list-header>概要</ons-list-header>`);
+        //     $("#detail").append(`<ons-list-item>${this.data.books.items[0].volumeInfo.description}</ons-list-item>`);
+        // }
+
+        // //出版社
+        // if("publisher" in this.data.books.items[0].volumeInfo){
+        //     $("#detail").append(`<ons-list-header>出版社</ons-list-header>`);
+        //     $("#detail").append(`<ons-list-item>${this.data.books.items[0].volumeInfo.publisher}</ons-list-item>`);
+        // }
+
+        // //出版年
+        // if("publishedDate" in this.data.books.items[0].volumeInfo){
+        //     $("#detail").append(`<ons-list-header>出版年</ons-list-header>`);
+        //     $("#detail").append(`<ons-list-item>${this.data.books.items[0].volumeInfo.publishedDate}</ons-list-item>`);
+        // }
+    }
+
+    </script>
+</ons-page>

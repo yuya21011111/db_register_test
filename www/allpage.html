@@ -1,0 +1,15 @@
+<ons-page id="all_page">
+    <ons-toolbar>
+        <div class="left"><ons-back-button>戻る</ons-back-button></div>
+        <div class="center">
+            All_page：全件検索
+        </div>
+    </ons-toolbar>
+
+    <ul id="dataList" class="list list--material"></ul>
+    <script>
+      ons.getScriptPage().onShow=function(){
+        mb.getAllData();
+      }
+    </script>
+</ons-page>

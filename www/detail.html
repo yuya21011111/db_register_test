@@ -1,0 +1,96 @@
+<ons-page>
+    <ons-toolbar>
+    <div class="left"><ons-back-button>戻る</ons-back-button></div>
+    <div class="center">書籍詳細</div>
+    </ons-toolbar>
+
+    <ons-list id="detail"></ons-list>
+    <br>
+    <br>
+    <ons-button id="regist">登録する</ons-button>
+    
+    <script>
+    ons.getScriptPage().onInit=function(){
+        //登録ボタンの処理
+         document.querySelector('#regist').onclick = function() {
+             let src = $('#img').attr('src');
+             let book_title = $('#book_title').text();
+             let book_subtitle = $('#book_subtitle').text();
+             let book_authors = $('#book_authors').text();
+             let book_description = $('#book_description').text();
+             let book_publishedDate = $('#book_publishedDate').text();
+             var BookArray = [src,book_title,book_subtitle,book_authors,book_description,book_publishedDate];
+             mb.saveData(BookArray);
+        }
+    }
+
+    ons.getScriptPage().onShow=function(){
+        //前画面から引き渡された内容を表示する
+        //受信していない内容については'－'を表示、イメージは代替画像を表示する
+
+        //image
+        $("#detail").append(`<ons-list-header>カバー写真</ons-list-header>`);
+        if("imageLinks" in this.data.books.items[0].volumeInfo){
+            if("smallThumbnail" in this.data.books.items[0].volumeInfo.imageLinks){
+                $("#detail").append(`<ons-list-item ><img src="${this.data.books.items[0].volumeInfo.imageLinks.smallThumbnail.replace("http","https")}" id="img"></ons-list-item>`);
+            }else{
+                $("#detail").append(`<ons-list-item ><img src="${this.data.books.items[0].volumeInfo.imageLinks.Thumbnail.replace("http","https")}" id="img"></ons-list-item>`);
+            }
+        }else{
+            $("#detail").append(`<ons-list-item ><img src="no_image.jpg" id="img"></ons-list-item>`);
+        }
+
+        //タイトル
+        $("#detail").append(`<ons-list-header>書籍タイトル</ons-list-header>`);
+        if("title" in this.data.books.items[0].volumeInfo){
+            $("#detail").append(`<ons-list-item id="book_title">${this.data.books.items[0].volumeInfo.title}</ons-list-item>`);
+        }else{
+            $("#detail").append(`<ons-list-item id="book_title">－</ons-list-item>`);
+        }
+
+        //サブタイトル        
+        $("#detail").append(`<ons-list-header>書籍サブタイトル</ons-list-header>`);
+        if("subtitle" in this.data.books.items[0].volumeInfo){
+            $("#detail").append(`<ons-list-item id="book_subtitle">${this.data.books.items[0].volumeInfo.subtitle}</ons-list-item>`);
+        }else{
+            $("#detail").append(`<ons-list-item id="book_subtitle">－</ons-list-item>`);
+
+        }
+
+        //著者        
+        $("#detail").append(`<ons-list-header>著者名</ons-list-header>`);
+        if("authors" in this.data.books.items[0].volumeInfo){
+            for(i=0;  i<this.data.books.items[0].volumeInfo.authors.length;i++){
+                $("#detail").append(`<ons-list-item id="book_authors">${this.data.books.items[0].volumeInfo.authors[i]}</ons-list-item>`);
+            }
+        }else{
+            $("#detail").append(`<ons-list-item id="book_authors">－</ons-list-item>`);
+        }
+
+        //概要        
+        $("#detail").append(`<ons-list-header>概要</ons-list-header>`);
+        if("description" in this.data.books.items[0].volumeInfo){
+            $("#detail").append(`<ons-list-item id="book_description">${this.data.books.items[0].volumeInfo.description}</ons-list-item>`);
+        }else{
+            $("#detail").append(`<ons-list-item id="book_description">－</ons-list-item>`);
+        }
+
+        //出版社
+        $("#detail").append(`<ons-list-header>出版社</ons-list-header>`);
+        if("publisher" in this.data.books.items[0].volumeInfo){
+            $("#detail").append(`<ons-list-item id="book_publisher">${this.data.books.items[0].volumeInfo.publisher}</ons-list-item>`);
+        }else{
+            $("#detail").append(`<ons-list-item id="book_publisher">－</ons-list-item>`);
+        }
+
+        //出版年
+        $("#detail").append(`<ons-list-header>出版年</ons-list-header>`);
+        if("publishedDate" in this.data.books.items[0].volumeInfo){
+            $("#detail").append(`<ons-list-item id="book_publishedDate">${this.data.books.items[0].volumeInfo.publishedDate}</ons-list-item>`);
+        }else{
+            $("#detail").append(`<ons-list-item id="book_publishedDate">－</ons-list-item>`);
+        }
+        
+    }
+    </script>
+</ons-page>

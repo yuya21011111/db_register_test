@@ -1,0 +1,59 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="center">書籍検索アプリ</div>
+    </ons-toolbar>
+    <div class="scanner-wrapper">
+       <div class="scanner-eye-catch">
+            <ons-icon icon="fa-barcode" size="160px"></ons-icon>
+        </div>
+        <ons-button class="blue scanner-button" id="book-scanner-button" modifier="large--cta">ISBNコードから検索</ons-button>
+        <ons-input id="keyword" modifier="underbar" placeholder="検索ワードを入力" >　　　　　</ons-input>
+        <br>
+        <br>
+        <ons-button class="red scanner-button" id="keyword-button" modifier="large--cta">キーワードから検索</ons-button>
+        <br>
+        <br>
+        <div>
+        <ons-button id="all_page" modifier="large">全件検索</ons-button>
+       </div>
+        <!-- <ons-button class="grenn scanner-button no_display" id="keyword-button" modifier="large--cta" >yahooショッピングで検索</ons-button> -->
+    </div>
+
+    <!-- 検索結果の表示 -->
+    <div id="content"></div>
+
+<script>
+    //画面を構成した時に行うこと
+    ons.getScriptPage().onInit=function(){
+        //ISBNボタン
+        document.querySelector('#book-scanner-button').onclick = function() {
+            console.log("book-scanner-button");
+            scan();
+        }
+
+        //キーワードボタン
+        document.querySelector('#keyword-button').onclick = function() {
+            //バリデーションチェック
+            const elem_keyword = document.querySelector("#keyword");
+
+            if(elem_keyword.value == ""){
+                alert("キーワードが未入力です");
+                elem_keyword.focus();
+            }else{
+                getGoole_books(mode_word, elem_keyword.value);
+            }
+        }
+        document.querySelector('#all_page').onclick = function() {
+            document.querySelector('#navigator').pushPage('allpage.html');
+          }
+
+    }
+
+    ons.getScriptPage().onShow=function(){
+        //  document.querySelector('#keyword').innerHTML = "";
+         document.querySelector('#content').innerHTML = "";
+
+    }
+    
+</script>
+</ons-page>
